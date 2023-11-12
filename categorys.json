@@ -1,0 +1,39 @@
+{
+  "Animals": [
+    "tiger", "lion", "panda", "koala", "sloth", "whale", "shark", "dolphin", "zebra", "giraffe",
+    "wolf", "bear", "penguin", "parrot", "cheetah", "gazelle", "hippo", "rhino", "kangaroo", "elephant",
+    "buffalo", "gorilla", "leopard", "jaguar", "squirrel", "hedgehog", "armadillo", "anteater"
+  ],
+  "Fruits": [
+    "apple", "banana", "grape", "kiwi", "mango", "peach", "fig", "guava", "plum", "pear",
+    "cherry", "avocado", "orange", "lemon", "lime", "coconut", "nectarine", "papaya", "apricot", "dragonfruit",
+    "cantaloupe", "blackberry", "cranberry", "elderberry"
+  ],
+  "Countries": [
+    "canada", "brazil", "france", "japan", "italy", "spain", "mexico", "egypt", "greece", "china",
+    "india", "argentina", "russia", "thailand", "ireland", "sweden", "nigeria", "turkey", "singapore", "switzerland",
+    "denmark", "norway", "belgium", "austria", "newzealand", "portugal", "finland", "poland"
+  ],
+  "Sports": [
+    "soccer", "tennis", "golf", "swimming", "basketball", "volleyball", "baseball", "cycling", "wrestling", "boxing",
+    "hockey", "cricket", "rugby", "athletics", "badminton", "skiing", "fencing", "rowing", "gymnastics", "archery",
+    "tabletennis", "surfing", "karate", "snooker", "sailing", "judo", "climbing", "tenpin", "skating"
+  ],
+  "Technology": [
+    "computer", "internet", "smartphone", "database", "software", "hardware", "network", "algorithm", "cloud", "coding",
+    "laptop", "keyboard", "screen", "printer", "router", "server", "storage", "webdev", "mobileapp", "gaming",
+    "firewall", "monitor", "pixel", "digital", "cyber", "gadget", "sensor", "webcam", "browser"
+  ],
+  "Colors": [
+    "red", "blue", "pink", "gray", "green", "brown", "black", "white", "gold", "violet",
+    "cyan", "lime", "teal", "navy", "plum", "rose", "mint", "coral", "peach", "ruby"
+  ],
+  "Vegetables": [
+    "carrot", "onion", "pepper", "tomato", "cabbage", "broccoli", "spinach", "radish", "zucchini", "cucumber",
+    "beet", "turnip", "lettuce", "garlic", "potato", "celery", "asparagus", "kale", "okra", "squash"
+  ],
+  "Home": [
+    "mirror", "clock", "plant", "vase", "sofa", "sink", "oven", "fridge", "stove", "chair",
+    "table", "couch", "lamp", "rug", "bed", "desk", "shelf", "door", "window"
+  ]
+}
