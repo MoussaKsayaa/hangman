@@ -27,17 +27,40 @@ categoriesJson.onload = function () {
     }
     let selectSound = new Audio("./music/select-sound-121244.mp3");
     selectSound.volume = 0.4;
+    selectSound.preload = "auto";
+    let clickSound = new Audio("./music/click.mp3");
+    clickSound.preload = "auto";
     let myAudio = new Audio("./music/Sneaky-Snitch(chosic.com).mp3");
+    myAudio.preload = "auto";
+    window.addEventListener("beforeunload", function () {
+      // Pause the background sound
+      myAudio.pause();
+    });
+    document.addEventListener("visibilitychange", function () {
+      if (document.hidden) {
+        // Page is hidden, pause the background sound
+        myAudio.pause();
+      } else {
+        // Page is visible again, resume the background sound if needed
+        myAudio.play();
+      }
+    });
+    let reportGameSound = new Audio("./music/correct.mp3");
+    reportGameSound.preload = "auto";
+    let wrongClickSound = new Audio("./music/wrong-click.mp3");
+    wrongClickSound.preload = "auto";
+    let gameOverSound = new Audio("./music/game-over.wav");
+    gameOverSound.preload = "auto";
     let keyword = document.querySelector(".keyword .keys");
     let category = categories[LS.getItem("category")];
     let categoryLetters = [];
-    let categoryWord = '';
+    let categoryWord = "";
     let uniqueWords = [];
     let keyboardKey = document.querySelectorAll(".keyboard .key");
     let hang = 10;
     let score = 0;
     let myTimer;
-    let scoreElement = document.querySelector('.content .score');
+    let scoreElement = document.querySelector(".content .score");
     scoreElement.innerText = `${score} / 10`;
     let categoryName = document.querySelector(".category-name"); // span element
     let categoryElement = document.querySelector(".category"); // category element
@@ -51,29 +74,29 @@ categoriesJson.onload = function () {
       item.innerText = Object.keys(categories)[i];
       menu.appendChild(item);
     }
-    let startGame = document.createElement('div');
-    startGame.className = 'startGame';
-    let startGameH = document.createElement('h1');
+    let startGame = document.createElement("div");
+    startGame.className = "startGame";
+    let startGameH = document.createElement("h1");
     startGameH.innerText = "Hangman Game";
     startGame.appendChild(startGameH);
-    let startGameSpan =  document.createElement('span');
+    let startGameSpan = document.createElement("span");
     startGameSpan.className = "select";
     startGameSpan.innerText = "Select Category:";
     startGame.appendChild(startGameSpan);
-    let startMenu = document.createElement('div');
-    startMenu.className = "start-menu"
+    let startMenu = document.createElement("div");
+    startMenu.className = "start-menu";
     startGame.appendChild(startMenu);
     let overlay = document.createElement("div");
     overlay.className = "overlay";
     document.body.appendChild(overlay);
     for (let i = 0; i < Object.keys(categories).length; i++) {
-      let startCat = document.createElement('div');
-      startCat.className = "start-Cat"
-      let imgCon = document.createElement('div');
+      let startCat = document.createElement("div");
+      startCat.className = "start-Cat";
+      let imgCon = document.createElement("div");
       imgCon.className = "image";
-      let itemImg = document.createElement('img');
+      let itemImg = document.createElement("img");
       itemImg.src = `./images/${Object.keys(categories)[i]}.ico`;
-      itemImg.alt = '';
+      itemImg.alt = "";
       imgCon.appendChild(itemImg);
       startCat.appendChild(imgCon);
       let item = document.createElement("h2");
@@ -93,13 +116,13 @@ categoriesJson.onload = function () {
         setTimeout(() => {
           startGame.remove();
         }, 300);
-        overlay.style.transition = '0.3s';
-        overlay.style.opacity = '0';
+        overlay.style.transition = "0.3s";
+        overlay.style.opacity = "0";
         setTimeout(() => {
           overlay.remove();
         }, 300);
         myAudio.play();
-      }
+      };
     }
     document.body.appendChild(startGame);
     // create and remove the menu element when click on category element
@@ -111,14 +134,16 @@ categoriesJson.onload = function () {
         menu.style.animationTimingFunction = "ease";
         menu.style.animationFillMode = "forwards";
         menu.style.animationName = "menu-out";
-        setTimeout(() => {menu.remove()}, 200);
+        setTimeout(() => {
+          menu.remove();
+        }, 200);
       } else {
         menu.style.animationDuration = "0.3s";
         menu.style.animationTimingFunction = "ease";
         menu.style.animationFillMode = "forwards";
         menu.style.animationName = "menu-entry";
         setTimeout(() => {
-          categoryElement.appendChild(menu)
+          categoryElement.appendChild(menu);
           // set the category when clicking on the item
           let items = document.querySelectorAll(".item");
           items.forEach((item) => {
@@ -135,19 +160,19 @@ categoriesJson.onload = function () {
       }
     };
     myAudio.loop = true;
-    let audio = document.querySelector('.content .audio');
+    let audio = document.querySelector(".content .audio");
     audio.onclick = () => {
       selectSound.play();
       if (audio.classList.contains("fa-pause")) {
-        audio.classList.remove('fa-pause');
-        audio.classList.add('fa-play');
+        audio.classList.remove("fa-pause");
+        audio.classList.add("fa-play");
         myAudio.pause();
       } else {
-        audio.classList.remove('fa-play');
-        audio.classList.add('fa-pause');
+        audio.classList.remove("fa-play");
+        audio.classList.add("fa-pause");
         myAudio.play();
       }
-    }
+    };
 
     function repeatePrevent() {
       let random = Math.round(Math.random() * (category.length - 1));
@@ -166,8 +191,8 @@ categoriesJson.onload = function () {
       let minElement = document.querySelector(".content .timer .min");
       let secElement = document.querySelector(".content .timer .sec");
       let sec = 0;
-      minElement.innerHTML = '00';
-      secElement.innerHTML = '00';
+      minElement.innerHTML = "00";
+      secElement.innerHTML = "00";
       myTimer = setInterval(() => {
         secElement.innerHTML = sec < 10 ? `0${sec}` : sec;
         sec++;
@@ -190,9 +215,7 @@ categoriesJson.onload = function () {
       removeKey();
       disabledRemover();
       let base = document.querySelector(".draw .base");
-      base.children.length > 0
-      ? base.firstElementChild.remove()
-      : "";
+      base.children.length > 0 ? base.firstElementChild.remove() : "";
       hang = 10;
       category = categories[LS.getItem("category")];
       categoryLetters = [];
@@ -204,7 +227,7 @@ categoriesJson.onload = function () {
         key.className = "key";
         keyword.appendChild(key);
       }
-      return ([categoryLetters, categoryWord]);
+      return [categoryLetters, categoryWord];
     }
     // keyword remover function
     function removeKey() {
@@ -215,10 +238,8 @@ categoriesJson.onload = function () {
     // disabled remover function
     function disabledRemover() {
       keyboardKey.forEach((key) =>
-      key.hasAttribute("disabled")
-        ? key.removeAttribute("disabled")
-        : ""
-    );
+        key.hasAttribute("disabled") ? key.removeAttribute("disabled") : ""
+      );
     }
     // [categoryLetters, categoryWord] = updateKey();
     // keyboard keys action
@@ -230,7 +251,6 @@ categoriesJson.onload = function () {
           categoryLetters.join("").trim().length > 0 &&
           !key.hasAttribute("disabled")
         ) {
-          let clickSound = new Audio("./music/click.mp3");
           clickSound.play();
           for (letter in categoryLetters) {
             if (key.textContent === categoryLetters[letter]) {
@@ -239,8 +259,9 @@ categoriesJson.onload = function () {
               lettersList[letter] = "";
               lettersList = lettersList.join("").split("");
               if (lettersList.length === 0) {
-                let reportGameSound = new Audio("./music/correct.mp3");
-                setTimeout(() => {reportGameSound.play()} , 500);
+                setTimeout(() => {
+                  reportGameSound.play();
+                }, 500);
                 let reportGame = document.createElement("div");
                 reportGame.className = "report-game";
                 let reportGameH = document.createElement("div");
@@ -255,12 +276,12 @@ categoriesJson.onload = function () {
                   score++;
                   scoreElement.innerText = `${score} / 10`;
                 }
-                if (score === 10){
+                if (score === 10) {
                   reportGameH.innerText = "Congrats🎉";
                   reportGameBtn.innerText = "New Game";
                 }
-                let reportGameScore = document.createElement('span');
-                reportGameScore.className = 'report-game-score';
+                let reportGameScore = document.createElement("span");
+                reportGameScore.className = "report-game-score";
                 reportGameScore.innerText = `${score} / 10`;
                 reportGame.appendChild(reportGameH);
                 reportGame.appendChild(reportGameScore);
@@ -296,7 +317,6 @@ categoriesJson.onload = function () {
           categoryLetters.join("").trim().length > 0 &&
           !key.hasAttribute("disabled")
         ) {
-          let wrongClickSound = new Audio("./music/wrong-click.mp3");
           wrongClickSound.play();
           hang--;
           let base = document.querySelector(".base");
@@ -365,15 +385,16 @@ categoriesJson.onload = function () {
               document.querySelector(".legs").appendChild(legRight);
           }
           if (hang === 0) {
-            let gameOverSound = new Audio("./music/game-over.wav");
-            setTimeout(() => {gameOverSound.play()}, 500);
+            setTimeout(() => {
+              gameOverSound.play();
+            }, 500);
             let reportGame = document.createElement("div");
             reportGame.className = "report-game";
             let reportGameH = document.createElement("div");
             reportGameH.className = "report-heading";
             reportGameH.innerText = "Game Over";
             reportGame.appendChild(reportGameH);
-            let resultWord = document.createElement('span');
+            let resultWord = document.createElement("span");
             resultWord.className = "result-word";
             resultWord.innerText = `The Word is: `;
             let resultWordSpan = document.createElement("span");
@@ -397,9 +418,7 @@ categoriesJson.onload = function () {
               score = 0;
               scoreElement.innerText = `${score} / 10`;
               hang = 10;
-              base.children.length > 0
-              ? base.firstElementChild.remove()
-              : "";
+              base.children.length > 0 ? base.firstElementChild.remove() : "";
               overlay.remove();
               reportGame.remove();
             };
