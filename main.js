@@ -72,7 +72,7 @@ categoriesJson.onload = function () {
       let imgCon = document.createElement('div');
       imgCon.className = "image";
       let itemImg = document.createElement('img');
-      itemImg.src = `./images/${Object.keys(categories)[i].toLowerCase()}.ico`;
+      itemImg.src = `./images/${Object.keys(categories)[i]}.ico`;
       itemImg.alt = '';
       imgCon.appendChild(itemImg);
       startCat.appendChild(imgCon);
